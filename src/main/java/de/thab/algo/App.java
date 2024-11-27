@@ -1,4 +1,4 @@
-package de.th-ab.algo;
+package de.thab.algo;
 
 /**
  * Hello world!

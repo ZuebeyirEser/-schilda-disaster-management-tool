@@ -1,4 +1,6 @@
-package de.th-ab.algo;
+package de.thab.algo
+
+-ab.algo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
