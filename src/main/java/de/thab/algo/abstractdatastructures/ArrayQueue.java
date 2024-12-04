@@ -1,5 +1,7 @@
 package de.thab.algo.abstractdatastructures;
 
+import java.util.Stack;
+
 public class ArrayQueue<T> {
     private int head;
     private int tail;
