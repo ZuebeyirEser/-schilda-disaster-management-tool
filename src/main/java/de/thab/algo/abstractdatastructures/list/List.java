@@ -1,4 +1,4 @@
-package de.thab.algo.abstractdatastructures;
+package de.thab.algo.abstractdatastructures.list;
 
 public interface List<T> {
     void add(T element);

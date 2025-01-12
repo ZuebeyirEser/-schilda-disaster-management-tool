@@ -1,4 +1,4 @@
-package de.thab.algo.abstractdatastructures;
+package de.thab.algo.abstractdatastructures.queue;
 
 import java.util.Stack;
 
@@ -9,6 +9,7 @@ public class ArrayQueue<T> {
     private T[] queue;
 
     //constructor
+    @SuppressWarnings("unchecked")
     public ArrayQueue(int size) {
         this.head = 0;
         this.tail = -1;

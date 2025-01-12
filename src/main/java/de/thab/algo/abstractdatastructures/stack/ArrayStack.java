@@ -1,4 +1,4 @@
-package de.thab.algo.abstractdatastructures;
+package de.thab.algo.abstractdatastructures.stack;
 
 public class ArrayStack<T> {
     private int top;
