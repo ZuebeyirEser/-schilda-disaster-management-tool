@@ -147,7 +147,7 @@ public class Graph {
      * @param dest The destination node.
      * @return The weight of the edge, or 0 if no edge exists.
      */
-    private int getWeight(int src, int dest) {
+    public int getWeight(int src, int dest) {
         ArrayList<Node> adjacentNodes = adj.get(src);
         for (int j = 0; j < adjacentNodes.size(); j++) {
             if (adjacentNodes.get(j).dest == dest) {
@@ -155,5 +155,13 @@ public class Graph {
             }
         }
         return 0;
+    }
+
+    public int getNumberOfNodes(){
+        return numberOfNodes;
+    }
+
+    public String getNodeName(int index){
+        return nodeNames[index];
     }
 }
