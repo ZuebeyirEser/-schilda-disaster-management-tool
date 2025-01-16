@@ -1,8 +1,10 @@
 package de.thab.algo.functionFour;
 
-import de.thab.algo.abstractdatastructures.Graph;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import java.util.*;
+import de.thab.algo.abstractdatastructures.*;
 
 public class ClusteringHelper {
 
@@ -19,18 +21,18 @@ public class ClusteringHelper {
      * @param maxIterations Maximum number of iterations.
      * @return A map of clusters with medoids as keys and lists of node indices as values.
      */
-    public Map<Integer, List<Integer>> kMedoids(int k, int maxIterations) {
+    public CustomHashMap<Integer, List<Integer>> kMedoids(int k, int maxIterations) {
         Random random = new Random();
         int n = graph.getNumberOfNodes();
 
         // Step 1: Initialize medoids randomly
-        Set<Integer> medoidSet = new HashSet<>();
+        CustomHashSet<Integer> medoidSet = new CustomHashSet<>();
         while (medoidSet.size() < k) {
             medoidSet.add(random.nextInt(n));
         }
-        List<Integer> medoids = new ArrayList<>(medoidSet);
+        List<Integer> medoids = new ArrayList<>(medoidSet.toList());
 
-        Map<Integer, List<Integer>> clusters = new HashMap<>();
+        CustomHashMap<Integer, List<Integer>> clusters = new CustomHashMap<>();
         for (int iteration = 0; iteration < maxIterations; iteration++) {
             // Step 2: Assign each node to the nearest medoid
             clusters.clear();
@@ -99,9 +101,9 @@ public class ClusteringHelper {
      *
      * @param clusters The cluster map with medoids and their assigned nodes.
      */
-    public void displayClusters(Map<Integer, List<Integer>> clusters) {
+    public void displayClusters(CustomMap<Integer, List<Integer>> clusters) {
         System.out.println("Clusters:");
-        for (Map.Entry<Integer, List<Integer>> entry : clusters.entrySet()) {
+        for (CustomMap.Entry<Integer, List<Integer>> entry : clusters.entrySet()) {
             System.out.println("Medoid: " + graph.getNodeName(entry.getKey()));
             System.out.print("Nodes: ");
             for (int node : entry.getValue()) {

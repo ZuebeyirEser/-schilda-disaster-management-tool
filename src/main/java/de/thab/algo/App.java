@@ -2,13 +2,10 @@ package de.thab.algo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
-import de.thab.algo.abstractdatastructures.Graph;
+import de.thab.algo.abstractdatastructures.*;
 import de.thab.algo.functionFive.FunctionFiveHelper;
 import de.thab.algo.functionFour.ClusteringHelper;
 
@@ -53,7 +50,7 @@ public class App {
         System.out.println("Running K-Medoids clustering...");
         ClusteringHelper clusteringHelper = new ClusteringHelper(graph);
 
-        Map<Integer, List<Integer>> clusters = clusteringHelper.kMedoids(k, 100);
+        CustomHashMap<Integer, List<Integer>> clusters = clusteringHelper.kMedoids(k, 100);
         clusteringHelper.displayClusters(clusters);
     }
 
@@ -65,11 +62,11 @@ public class App {
         scanner.nextLine();
     
         System.out.println("Enter skills of each team (comma-separated):");
-        List<Set<String>> teamSkills = new ArrayList<>();
+        List<CustomSet<String>> teamSkills = new ArrayList<>();
         for (int i = 0; i < teamCount; i++) {
             System.out.print("Team " + (i + 1) + ": ");
             String[] skills = scanner.nextLine().split(",");
-            teamSkills.add(new HashSet<>(Arrays.asList(skills)));
+            teamSkills.add(new CustomHashSet<>(Arrays.asList(skills)));
         }
     
         System.out.print("Enter the number of nodes: ");
@@ -77,11 +74,11 @@ public class App {
         scanner.nextLine();
     
         System.out.println("Enter requirements of each node (comma-separated):");
-        List<Set<String>> nodeRequirements = new ArrayList<>();
+        List<CustomSet<String>> nodeRequirements = new ArrayList<>();
         for (int i = 0; i < nodeCount; i++) {
             System.out.print("Node " + (i + 1) + ": ");
             String[] requirements = scanner.nextLine().split(",");
-            nodeRequirements.add(new HashSet<>(Arrays.asList(requirements)));
+            nodeRequirements.add(new CustomHashSet<>(Arrays.asList(requirements)));
         }
     
         // Initialize FunctionFiveHelper
@@ -95,9 +92,9 @@ public class App {
         System.out.println("Maximum number of functional nodes: " + maxFlow);
     
         // Get and display the allocation
-        Map<Integer, Integer> allocation = helper.getAllocation();
+        CustomHashMap<Integer, Integer> allocation = helper.getAllocation();
         System.out.println("Resource Allocation:");
-        for (Map.Entry<Integer, Integer> entry : allocation.entrySet()) {
+        for (CustomMap.Entry<Integer, Integer> entry : allocation.entrySet()) {
             System.out.println("Team " + entry.getKey() + " -> Node " + entry.getValue());
         }
     }
