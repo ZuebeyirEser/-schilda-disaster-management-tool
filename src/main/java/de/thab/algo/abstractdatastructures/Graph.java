@@ -324,4 +324,12 @@ public class Graph {
         }
         System.out.println("---------------");
     }
+
+    public int getNumberOfNodes(){
+        return numberOfNodes;
+    }
+
+    public String getNodeName(int node){
+        return nodeNames[node];
+    }
 }

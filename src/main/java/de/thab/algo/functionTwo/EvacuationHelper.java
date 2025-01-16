@@ -1,4 +1,4 @@
-package de.thab.algo.functionOne;
+package de.thab.algo.functionTwo;
 
 import de.thab.algo.abstractdatastructures.Graph;
 import de.thab.algo.graphreader.GraphReader;
