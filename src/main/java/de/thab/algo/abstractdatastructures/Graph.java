@@ -14,7 +14,7 @@ public class Graph {
     /**
      * Represents a node in the graph with a destination and weight.
      */
-    private static class Node {
+    public static class Node {
         private int dest;
         private int weight;
 
@@ -44,7 +44,7 @@ public class Graph {
     }
 
     /**
-     * Adds an undirected edge to the graph.
+     * Adds an edge to the graph for Prims algorithm.
      *
      * @param src    The source vertex.
      * @param dest   The destination vertex.
@@ -54,6 +54,45 @@ public class Graph {
         adj.get(src).add(new Node(dest, weight));
         adj.get(dest).add(new Node(src, weight));
     }
+
+    // Modified addEdge to prevent duplicate edges
+    /**
+     * Adds an edge to the graph with additional checks for Dijkstra's algorithm.
+     *
+     * This method adds or updates an edge between the source and destination vertices
+     * based on the specified weight. It ensures that:
+     * <ul>
+     *   <li>Only positive weights are allowed.</li>
+     *   <li>Duplicate edges are avoided.</li>
+     *   <li>If an edge already exists, the weight is updated only if the new weight is smaller.</li>
+     * </ul>
+     *
+     * @param src    The source vertex.
+     * @param dest   The destination vertex.
+     * @param weight The weight of the edge (must be positive).
+     */
+    public void addEdgeDijkstra(int src, int dest, int weight) {
+        if (weight > 0) {  // Only add edges with positive weights
+            // Check if edge already exists and update if it does
+            boolean edgeExists = false;
+            ArrayList<Node> srcList = adj.get(src);
+            for (int i = 0; i < srcList.size(); i++) {
+                Node node = srcList.get(i);
+                if (node.dest == dest) {
+                    // Update weight if new weight is smaller
+                    if (weight < node.weight) {
+                        srcList.add(new Node(dest, weight));
+                    }
+                    edgeExists = true;
+                    break;
+                }
+            }
+            if (!edgeExists) {
+                adj.get(src).add(new Node(dest, weight));
+            }
+        }
+    }
+
 
     /**
      * Applies Prim's algorithm to find the Minimum Spanning Tree starting from the specified node.
@@ -161,7 +200,7 @@ public class Graph {
         return numberOfNodes;
     }
 
-    public String getNodeName(int index){
-        return nodeNames[index];
+    public String getNodeName(int node){
+        return nodeNames[node];
     }
 }

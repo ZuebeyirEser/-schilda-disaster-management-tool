@@ -1,7 +1,5 @@
 package de.thab.algo.abstractdatastructures.list;
 
-import de.thab.algo.abstractdatastructures.list.List;
-
 public class ArrayList<T> implements List<T> {
     private T[] elements;
     private int size;

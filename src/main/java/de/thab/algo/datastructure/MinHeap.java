@@ -1,4 +1,7 @@
 package de.thab.algo.datastructure;
+
+import java.util.Arrays;
+
 /**
  * A min-heap implementation for use in graph algorithms.
  */
@@ -51,6 +54,8 @@ public class MinHeap {
         heapArray = new HeapNode[capacity];
         vertexToIndex = new int[n];
         current_heap_size = 0;
+
+        Arrays.fill(vertexToIndex, -1);
     }
 
     /**
@@ -126,6 +131,9 @@ public class MinHeap {
      * @throws IllegalArgumentException if the new key is greater than the current key or if the vertex is invalid.
      */
     public void decreaseKey(int vertex, int new_val) {
+        if (vertexToIndex[vertex] == -1) {
+            return; // Vertex not in the heap, ignore decrease
+        }
         int i = vertexToIndex[vertex];
 
         if (i < 0 || i >= current_heap_size) {

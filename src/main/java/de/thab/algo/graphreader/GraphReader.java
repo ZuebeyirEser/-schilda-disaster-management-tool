@@ -38,4 +38,28 @@ public class GraphReader {
             return new Object[]{graph, vertexNames};
         }
     }
+
+    public static Object[] readFromFileWithNamesDijkstra(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            // Read nodes names from first line
+            String[] vertexNames = reader.readLine().trim().split("\\s+");
+            int numberOfVertex = vertexNames.length;
+
+            // Create new graph with the number of vertices
+            Graph graph = new Graph(numberOfVertex,vertexNames);
+
+            // Read adjacency matrix and add edges
+            for (int i = 0; i < numberOfVertex; i++) {
+                String[] values = reader.readLine().trim().split("\\s+");
+                for (int j = 1; j < values.length; j++) {
+                    int weight = Integer.parseInt(values[j]);
+                    if (weight > 0) {
+                        graph.addEdgeDijkstra(i, j - 1, weight);
+                    }
+                }
+            }
+
+            return new Object[]{graph, vertexNames};
+        }
+    }
 }
