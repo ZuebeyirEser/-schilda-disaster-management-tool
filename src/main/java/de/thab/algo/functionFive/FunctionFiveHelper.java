@@ -1,16 +1,13 @@
 package de.thab.algo.functionFive;
 
+import de.thab.algo.abstractdatastructures.*;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
 
 public class FunctionFiveHelper {
     private final List<Edge> edges = new ArrayList<>();
-    private final Map<Integer, List<Integer>> adj = new HashMap<>();
+    private final CustomHashMap<Integer, List<Integer>> adj = new CustomHashMap<>();
     private final int source;
     private final int sink;
     private final int nodeCount;
@@ -47,7 +44,7 @@ public class FunctionFiveHelper {
         adj.get(to).add(edges.size() - 1);
     }
 
-    public void buildGraph(List<Set<String>> teamSkills, List<Set<String>> nodeRequirements) {
+    public void buildGraph(List<CustomSet<String>> teamSkills, List<CustomSet<String>> nodeRequirements) {
         // Add edges from source to teams
         for (int i = 0; i < teamCount; i++) {
             addEdge(source, i + 1, 1);
@@ -94,7 +91,7 @@ public class FunctionFiveHelper {
 
     private boolean bfs(int[] parent) {
         boolean[] visited = new boolean[adj.size()];
-        Queue<Integer> queue = new LinkedList<>();
+        CustomQueue<Integer> queue = new CustomQueue<>();
         queue.add(source);
         visited[source] = true;
 
@@ -117,8 +114,8 @@ public class FunctionFiveHelper {
         return false;
     }
 
-    public Map<Integer, Integer> getAllocation() {
-        Map<Integer, Integer> allocation = new HashMap<>();
+    public CustomHashMap<Integer, Integer> getAllocation() {
+        CustomHashMap<Integer, Integer> allocation = new CustomHashMap<>();
 
         for (Edge edge : edges) {
             if (edge.from > 0 && edge.from <= teamCount && edge.to > teamCount && edge.to < sink && edge.flow > 0) {
