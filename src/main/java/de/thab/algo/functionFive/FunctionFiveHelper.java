@@ -1,9 +1,11 @@
 package de.thab.algo.functionFive;
 
-import de.thab.algo.abstractdatastructures.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import de.thab.algo.abstractdatastructures.CustomHashMap;
+import de.thab.algo.abstractdatastructures.CustomQueue;
+import de.thab.algo.abstractdatastructures.CustomSet;
 
 public class FunctionFiveHelper {
     private final List<Edge> edges = new ArrayList<>();
@@ -24,6 +26,13 @@ public class FunctionFiveHelper {
         }
     }
 
+        /**
+     * Helper for function 5 to create the new bipartite graph.
+     *
+     * @param teamCount             Number of teams.
+     * @param nodeCount             Number of points that need help.
+     * @return                      N/A.
+     */
     public FunctionFiveHelper(int teamCount, int nodeCount) {
         this.teamCount = teamCount;
         this.nodeCount = nodeCount;
@@ -44,6 +53,13 @@ public class FunctionFiveHelper {
         adj.get(to).add(edges.size() - 1);
     }
 
+        /**
+     * Creates a bipartite graph modelled with the teamSkills and nodeRequirements.
+     *
+     * @param teamSkills             List of team skills.
+     * @param nodeRequirements       List of requirements for each node.
+     * @return                       Creates the graph but does not return it.
+     */
     public void buildGraph(List<CustomSet<String>> teamSkills, List<CustomSet<String>> nodeRequirements) {
         // Add edges from source to teams
         for (int i = 0; i < teamCount; i++) {
@@ -65,6 +81,11 @@ public class FunctionFiveHelper {
         }
     }
 
+        /**
+     * Implements the Max Flow algorithm using BFS.
+     *
+     * @return        returns the maximum number of functional nodes after skill-requirement matching.
+     */
     public int maxFlow() {
         int totalFlow = 0;
         int[] parent = new int[adj.size()];
@@ -89,6 +110,12 @@ public class FunctionFiveHelper {
         return totalFlow;
     }
 
+        /**
+     * Implements a BFS algorithm.
+     *
+     * @param parent             list of edge indexes.
+     * @return    true if able to traverse the whole graph
+     */
     private boolean bfs(int[] parent) {
         boolean[] visited = new boolean[adj.size()];
         CustomQueue<Integer> queue = new CustomQueue<>();
@@ -114,6 +141,11 @@ public class FunctionFiveHelper {
         return false;
     }
 
+        /**
+     * Implements the K-Medoids clustering algorithm.
+     * 
+     * @return A hashmap of the teamIndex and nodeIndex pairs.
+     */
     public CustomHashMap<Integer, Integer> getAllocation() {
         CustomHashMap<Integer, Integer> allocation = new CustomHashMap<>();
 

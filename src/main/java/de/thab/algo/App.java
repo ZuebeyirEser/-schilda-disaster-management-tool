@@ -1,43 +1,91 @@
 package de.thab.algo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import de.thab.algo.abstractdatastructures.*;
+import de.thab.algo.abstractdatastructures.CustomHashMap;
+import de.thab.algo.abstractdatastructures.CustomHashSet;
+import de.thab.algo.abstractdatastructures.CustomMap;
+import de.thab.algo.abstractdatastructures.CustomSet;
+import de.thab.algo.abstractdatastructures.Graph;
 import de.thab.algo.functionFive.FunctionFiveHelper;
 import de.thab.algo.functionFour.ClusteringHelper;
+import de.thab.algo.functionOne.InfrastructureNetworkHelper;
+import de.thab.algo.functionThree.Main;
+import de.thab.algo.functionTwo.EvacuationHelper;
+import de.thab.algo.graphreader.GraphReader;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         // Initialize a sample graph for demonstration
-        Graph graph = new Graph(5, new String[]{"A", "B", "C", "D", "E"});
-        graph.addEdge(0, 1, 10);
-        graph.addEdge(0, 2, 20);
-        graph.addEdge(1, 2, 5);
-        graph.addEdge(3, 4, 15);
+        Graph graphMock = new Graph(5, new String[]{"A", "B", "C", "D", "E"});
+        graphMock.addEdge(0, 1, 10);
+        graphMock.addEdge(0, 2, 20);
+        graphMock.addEdge(1, 2, 5);
+        graphMock.addEdge(3, 4, 15);
 
-        while (true) {
-            System.out.println("\nSelect a function:");
-            System.out.println("4. Set up supply points ");
-            System.out.println("5. Deployment planning for emergency services");
-            System.out.println("0. Exit");
+        //Initialize Graph
+        String filePath = "src/main/resources/graph_directed_weighted.txt";
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+        try{
+            Object[] graphData = GraphReader.readFromFileWithNames(filePath);
+            Graph graph = (Graph) graphData[0];
+            String[] vertexNames = (String[]) graphData[1];
 
-            switch (choice) {
-                case 4 -> performFunctionFour(graph, scanner);
-                case 5 -> performFunctionFive(scanner);
-                case 0 -> {
-                    System.out.println("Exiting...");
-                    return;
+            while (true) {
+                System.out.println("\nSelect a function:");
+                System.out.println("1. Rebuild communication infrastructure");
+                System.out.println("2. Plan evacuation routes");
+                System.out.println("3. Plan routes for emergency services");
+                System.out.println("4. Set up supply points ");
+                System.out.println("5. Deployment planning for emergency services");
+                System.out.println("0. Exit");
+    
+                int choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+    
+                switch (choice) {
+                    case 1 -> performFunctionOne(graph, scanner);
+                    case 2 -> performFunctionTwo(graph, scanner);
+                    case 3 -> performFunctionThree(graph, scanner);
+                    case 4 -> performFunctionFour(graph, scanner);
+                    case 5 -> performFunctionFive(scanner);
+                    case 0 -> {
+                        System.out.println("Exiting...");
+                        return;
+                    }
+                    default -> System.out.println("Invalid choice. Please try again.");
                 }
-                default -> System.out.println("Invalid choice. Please try again.");
             }
+
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    private static void performFunctionOne(Graph graph, Scanner scanner) {
+        System.out.println("=== Function One: Rebuild communication infrastructure ===");
+        InfrastructureNetworkHelper infrastructureFunction = new InfrastructureNetworkHelper();
+        infrastructureFunction.main(null);
+    }
+
+    private static void performFunctionTwo(Graph graph, Scanner scanner) {
+        System.out.println("=== Function Two: Plan evacuation routes ===");
+        EvacuationHelper evacuationFunction = new EvacuationHelper();
+        evacuationFunction.main(null);
+    }
+
+    private static void performFunctionThree(Graph graph, Scanner scanner) {
+        try {
+            System.out.println("=== Function Four: Plan routes for emergency services ===");
+            Main function = new Main();
+            function.main(null);
+        } catch (IOException ex) {
         }
     }
 
@@ -50,7 +98,7 @@ public class App {
         System.out.println("Running K-Medoids clustering...");
         ClusteringHelper clusteringHelper = new ClusteringHelper(graph);
 
-        CustomHashMap<Integer, List<Integer>> clusters = clusteringHelper.kMedoids(k, 100);
+        CustomHashMap<Integer, List<Integer>> clusters = clusteringHelper.kMedoids(k, 1000);
         clusteringHelper.displayClusters(clusters);
     }
 
@@ -98,5 +146,7 @@ public class App {
             System.out.println("Team " + entry.getKey() + " -> Node " + entry.getValue());
         }
     }
+
+
      
 }
