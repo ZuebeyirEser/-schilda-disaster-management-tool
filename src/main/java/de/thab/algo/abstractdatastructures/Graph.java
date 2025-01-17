@@ -28,6 +28,14 @@ public class Graph {
             this.dest = dest;
             this.weight = weight;
         }
+        //getter setter
+        public int getDest() {
+            return dest;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
     }
     /**
      * Constructs a Graph with the specified number of vertices and node names.
@@ -331,5 +339,11 @@ public class Graph {
 
     public String getNodeName(int node){
         return nodeNames[node];
+    }
+    public ArrayList<Node> getAdjacentNodes(int vertex) {
+        if (vertex >= 0 && vertex < numberOfNodes) {
+            return adj.get(vertex);
+        }
+        return null;
     }
 }
