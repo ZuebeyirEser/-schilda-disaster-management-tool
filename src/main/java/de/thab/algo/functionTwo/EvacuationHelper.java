@@ -37,25 +37,21 @@ public class EvacuationHelper {
         }
     }
 
-    public static void main(String[] args) {
+    public static void myFunctionTwo(Scanner input) {
         String filePath = "src/main/resources/graph_directed_weighted.txt";
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        try {
             Object[] graphData = GraphReader.readFromFileWithNamesDijkstra(filePath);
             Graph graph = (Graph) graphData[0];
             String[] vertexNames = (String[]) graphData[1];
 
-            // Initialize infrastructure nodes
             InfrastructureNode[] infrastructureNodes = initializeInfrastructureNodes(vertexNames);
 
-            // Display the initial graph structure
             System.out.println("\nInitial Graph Structure:");
             graph.printGraph();
 
-            // Get priority nodes from user
-            setPriorityNodeFromUserInput(infrastructureNodes, scanner);
+            setPriorityNodeFromUserInput(infrastructureNodes, input);
 
-            // Calculate and display results using Dijkstra's algorithm
             displayResults(graph, infrastructureNodes);
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
@@ -76,11 +72,7 @@ public class EvacuationHelper {
     private static void displayResults(Graph graph, InfrastructureNode[] infrastructureNodes) {
         System.out.println("\nCalculating Shortest Paths from Priority Node:");
         int startNode = findFirstPriorityNode(infrastructureNodes);
-
-        // Use the existing Dijkstra implementation in the Graph class
         graph.dijkstra(startNode);
-
-        // Print additional information about priority nodes
         printPriorityNodesInfo(infrastructureNodes);
     }
 

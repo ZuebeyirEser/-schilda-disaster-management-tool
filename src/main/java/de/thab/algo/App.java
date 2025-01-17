@@ -20,7 +20,6 @@ import de.thab.algo.graphreader.GraphReader;
 
 public class App {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
         // Initialize a sample graph for demonstration
         Graph graphMock = new Graph(5, new String[]{"A", "B", "C", "D", "E"});
@@ -32,7 +31,7 @@ public class App {
         //Initialize Graph
         String filePath = "src/main/resources/graph_directed_weighted.txt";
 
-        try{
+        try (Scanner scanner = new Scanner(System.in)){
             Object[] graphData = GraphReader.readFromFileWithNames(filePath);
             Graph graph = (Graph) graphData[0];
             String[] vertexNames = (String[]) graphData[1];
@@ -50,9 +49,9 @@ public class App {
                 scanner.nextLine(); // Consume newline
     
                 switch (choice) {
-                    case 1 -> performFunctionOne(graph, scanner);
-                    case 2 -> performFunctionTwo(graph, scanner);
-                    case 3 -> performFunctionThree(graph, scanner);
+                    case 1 -> performFunctionOne(scanner);
+                    case 2 -> performFunctionTwo(scanner);
+                    case 3 -> performFunctionThree(scanner);
                     case 4 -> performFunctionFour(graph, scanner);
                     case 5 -> performFunctionFive(scanner);
                     case 0 -> {
@@ -68,25 +67,22 @@ public class App {
         }
     }
 
-    private static void performFunctionOne(Graph graph, Scanner scanner) {
+    private static void performFunctionOne(Scanner input) {
         System.out.println("=== Function One: Rebuild communication infrastructure ===");
-        InfrastructureNetworkHelper infrastructureFunction = new InfrastructureNetworkHelper();
-        infrastructureFunction.main(null);
+        InfrastructureNetworkHelper.myFunctionOne(input);
     }
 
-    private static void performFunctionTwo(Graph graph, Scanner scanner) {
+    private static void performFunctionTwo(Scanner input) {
         System.out.println("=== Function Two: Plan evacuation routes ===");
-        EvacuationHelper evacuationFunction = new EvacuationHelper();
-        evacuationFunction.main(null);
+
+        EvacuationHelper.myFunctionTwo(input);
+
     }
 
-    private static void performFunctionThree(Graph graph, Scanner scanner) {
-        try {
-            System.out.println("=== Function Four: Plan routes for emergency services ===");
-            Main function = new Main();
-            function.main(null);
-        } catch (IOException ex) {
-        }
+    private static void performFunctionThree(Scanner scanner) throws IOException {
+        System.out.println("=== Function Three: Plan routes for emergency services ===");
+        //String[] args = {};
+        Main.myFunctionThree(scanner);
     }
 
     private static void performFunctionFour(Graph graph, Scanner scanner) {

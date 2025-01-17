@@ -43,16 +43,16 @@ public class InfrastructureNetworkHelper {
     }
 
     /**
-     * The main method that serves as the entry point for the application.
+     * The myFunctionOne method that serves as the entry point for the application.
      * It reads graph data from a file, initializes infrastructure nodes,
      * accepts user input for priority nodes, and displays results.
      *
-     * @param args command-line arguments (not used)
+     * @param scanner command-line arguments for user input
      */
-    public static void main(String[] args) {
+    public static void myFunctionOne(Scanner scanner) {
         String filePath = "src/main/resources/graph_directed_weighted.txt";
 
-        try (Scanner scanner = new Scanner(System.in)){
+        try {
 
             Object[] graphData = GraphReader.readFromFileWithNames(filePath);
             Graph graph = (Graph) graphData[0];

@@ -22,12 +22,10 @@ public class EvacuationSystem {
         infrastructureNodes = initializeInfrastructureNodes(nodeNames);
 
         // Copy edges from original graph to evacuation graph
-        // You'll need to implement this based on your Graph class structure
         copyEdgesFromOriginalGraph(originalGraph);
     }
 
     private void copyEdgesFromOriginalGraph(Graph originalGraph) {
-        // Since your original Graph class uses adjacency lists
         for (int i = 0; i < nodeNames.length; i++) {
             ArrayList<Graph.Node> originalAdjList = originalGraph.getAdjacentNodes(i);
             if (originalAdjList != null) {
@@ -47,35 +45,32 @@ public class EvacuationSystem {
         return nodes;
     }
 
-    public void run() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                displayMenu();
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
-
-                switch (choice) {
-                    case 1 -> handleBlockRoad(scanner);
-                    case 2 -> handleUnblockRoad(scanner);
-                    case 3 -> handleSetPriorityNode(scanner);
-                    case 4 -> handleCalculateRoutes();
-                    case 5 -> graph.printNetwork();
-                    case 6 -> {
-                        return;
-                    }
-                    default -> System.out.println("Invalid choice. Please try again.");
+    public void run(Scanner scanner) {
+        while (true) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1 -> graph.printNetwork();
+                case 2 -> handleSetPriorityNode(scanner);
+                case 3 -> handleBlockRoad(scanner);
+                case 4 -> handleUnblockRoad(scanner);
+                case 5 -> handleCalculateRoutes();
+                case 6 -> {
+                    return;
                 }
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
     private void displayMenu() {
         System.out.println("\nEvacuation System Menu:");
-        System.out.println("1. Block Road");
-        System.out.println("2. Unblock Road");
-        System.out.println("3. Set Priority Node");
-        System.out.println("4. Calculate Evacuation Routes");
-        System.out.println("5. Display Network");
+        System.out.println("1. Display Network");
+        System.out.println("2. Set Priority Node");
+        System.out.println("3. Block Road");
+        System.out.println("4. Unblock Road");
+        System.out.println("5. Calculate Evacuation Routes");
         System.out.println("6. Exit");
         System.out.print("Enter your choice: ");
     }
@@ -114,7 +109,7 @@ public class EvacuationSystem {
 
         System.out.println("\nSelect Priority Node (1-" + nodeNames.length + "): ");
         int input = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         if (input > 0 && input <= nodeNames.length) {
             int idx = input - 1;
@@ -126,7 +121,7 @@ public class EvacuationSystem {
             System.out.println("3. Government Building");
 
             int typeChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             NodeType type = switch (typeChoice) {
                 case 1 -> NodeType.RESCUE_STATION;
